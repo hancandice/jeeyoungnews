@@ -1,8 +1,40 @@
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { AsyncStorage } from "react-native";
 import { InventoryItem } from "../service/inventory";
 
 const INVENTORY_ITEMS = "INVENTORY_ITEMS";
+const SEARCH_HISTORY = "SEARCH_HISTORY";
+const CLIPPED_NEWS = "CLIPPED_NEWS";
+
+const getSearchHistory = () => {
+  return new Promise(function (resolve, _) {
+    AsyncStorage.getItem(SEARCH_HISTORY)
+      .then((items) => {
+        const result = items ? JSON.parse(items) : [];
+        console.log("search history in local storage: ", result);
+        resolve(result);
+      })
+      .catch((err) => {
+        console.log("Error fetching search history: ", err);
+        resolve(null);
+      });
+  });
+};
+
+const getClippedNews = () => {
+  return new Promise(function (resolve, _) {
+    AsyncStorage.getItem(CLIPPED_NEWS)
+      .then((items) => {
+        const result = items ? JSON.parse(items) : [];
+        console.log("clipped news in local storage: ", result);
+        resolve(result);
+      })
+      .catch((err) => {
+        console.log("Error fetching clipped news: ", err);
+        resolve(null);
+      });
+  });
+};
 
 const getInventoryItems = () => {
   return new Promise(function (resolve, reject) {
@@ -61,6 +93,8 @@ const deviceStorage = {
   getInventoryItems,
   setInventoryItems,
   clearAsyncStorage,
+  getSearchHistory,
+  getClippedNews,
 };
 
 export default deviceStorage;

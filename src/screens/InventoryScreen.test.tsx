@@ -3,7 +3,7 @@ import React from "react";
 import prepareReduxWrapper from "../utils/prepareReduxWrapper";
 import PostModalScreen from "./PostModalScreen";
 
-describe("<InventoryScreen />", () => {
+describe("<ClippedScreen />", () => {
   it("renders without crashing", () => {
     const [Wrapper, store] = prepareReduxWrapper();
     const rendered = render(

@@ -16,12 +16,7 @@ process.env.NODE_ENV =
 const store = configureStore();
 
 import { LogBox } from "react-native";
-LogBox.ignoreLogs([
-  "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
-  "Remote debugger is in a background tab which may cause apps to perform slowly. Fix this by foregrounding the tab (or opening it in a separate window).",
-  "Warning: componentWillReceiveProps has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details.",
-  "AsyncStorage has been extracted from react-native core and will be removed in a future release. It can now be installed and imported from '@react-native-async-storage/async-storage' instead of 'react-native'. See https://github.com/react-native-async-storage/async-storage",
-]);
+LogBox.ignoreLogs([]);
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

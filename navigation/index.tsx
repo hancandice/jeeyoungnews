@@ -8,16 +8,12 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
-import SvgIconSet from "../assets/images/icons/SvgIconSet";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import HomeScreen from "../src/screens/HomeScreen";
-import InsuranceScreen from "../src/screens/InsuranceScreen";
-import InventoryScreen from "../src/screens/InventoryScreen";
-import MenuScreen from "../src/screens/MenuScreen";
+import ClippedScreen from "../src/screens/ClippedScreen";
 import NotFoundScreen from "../src/screens/NotFoundScreen";
 import PostModalScreen from "../src/screens/PostModalScreen";
-import RealtyScreen from "../src/screens/RealtyScreen";
+import SearchScreen from "../src/screens/SearchScreen";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -81,52 +77,25 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Inventory"
+      initialRouteName="검색"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={({ navigation }: RootTabScreenProps<"Home">) => ({
-          tabBarIcon: ({ focused }) => (
-            <SvgIconSet.HomeTabIcon focused={focused} />
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="Insurance"
-        component={InsuranceScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <SvgIconSet.InsuranceTabIcon focused={focused} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="Inventory"
-        component={InventoryScreen}
-        options={({ navigation }: RootTabScreenProps<"Inventory">) => ({
-          tabBarIcon: ({ focused }) => (
-            <SvgIconSet.InventoryTabIcon focused={focused} />
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="Realty"
-        component={RealtyScreen}
-        options={({ navigation }: RootTabScreenProps<"Realty">) => ({
+        name="검색"
+        component={SearchScreen}
+        options={({ navigation }: RootTabScreenProps<"검색">) => ({
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
         })}
       />
       <BottomTab.Screen
-        name="Menu"
-        component={MenuScreen}
-        options={({ navigation }: RootTabScreenProps<"Menu">) => ({
-          tabBarIcon: ({ focused }) => (
-            <SvgIconSet.MenuTabIcon focused={focused} />
+        name="클립한뉴스"
+        component={ClippedScreen}
+        options={({ navigation }: RootTabScreenProps<"클립한뉴스">) => ({
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="newspaper-o" color={color} />
           ),
         })}
       />

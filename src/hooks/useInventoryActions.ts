@@ -5,6 +5,7 @@ import { inventoryActions } from "../modules/inventory/reducer";
 
 export function useInventoryActions() {
   const dispatch = useDispatch();
+
   return useMemo(
     () => bindActionCreators(inventoryActions, dispatch),
     [dispatch]

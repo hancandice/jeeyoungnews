@@ -1,4 +1,5 @@
-import { runSaga } from "@redux-saga/core";
+import { runSaga, Saga } from "@redux-saga/core";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { select, takeLatest } from "redux-saga/effects";
 import inventoryService from "../../service/inventory";
 import dummyData from "../../utils/DummyData";
@@ -13,7 +14,7 @@ describe("inventorySaga", () => {
   const genObject = inventorySaga();
 
   it("should call getInventoryItemsSaga first", () => {
-    expect(genObject.next().value.payload.fn).toEqual(getInventoryItemsSaga);
+    expect(genObject.next().value!!.payload.fn).toEqual(getInventoryItemsSaga);
   });
 
   it("should wait for latest inventoryActions.addItem action and call addItemSaga", () => {
@@ -30,24 +31,18 @@ describe("inventorySaga", () => {
 describe("getInventoryItemsSaga", () => {
   const genObject = getInventoryItemsSaga();
 
-  it("calls inventoryService.getItems", () => {
-    expect(genObject.next().value.payload.fn).toEqual(
-      inventoryService.getItems
-    );
-  });
-
   it("should call inventoryService.getItems and dispatch receiveItems action", async () => {
     const dummyInventoryDatas = dummyData.inventoryData;
     const getItems = jest
       .spyOn(inventoryService, "getItems")
       .mockImplementation(() => Promise.resolve(dummyInventoryDatas));
 
-    const dispatched = [];
+    const dispatched: PayloadAction[] = [];
     await runSaga(
       {
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: PayloadAction) => dispatched.push(action),
       },
-      getInventoryItemsSaga
+      getInventoryItemsSaga as Saga<any[]>
     );
 
     expect(getItems).toHaveBeenCalledTimes(1);
@@ -62,13 +57,13 @@ describe("getInventoryItemsSaga", () => {
       .spyOn(inventoryService, "getItems")
       .mockImplementation(() => Promise.resolve(null));
 
-    const dispatched = [];
+    const dispatched: PayloadAction[] = [];
 
     await runSaga(
       {
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: PayloadAction) => dispatched.push(action),
       },
-      getInventoryItemsSaga
+      getInventoryItemsSaga as Saga<any[]>
     );
 
     expect(getItems).toHaveBeenCalledTimes(1);
@@ -91,14 +86,14 @@ describe("addItemSaga", () => {
       .spyOn(inventoryService, "addItem")
       .mockImplementation(() => Promise.resolve([dummyItem]));
 
-    const dispatched = [];
+    const dispatched: PayloadAction[] = [];
 
     await runSaga(
       {
         getState: () => ({ inventory: initialState }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: PayloadAction) => dispatched.push(action),
       },
-      addItemSaga,
+      addItemSaga as Saga<any[]>,
       inventoryActions.addItem(dummyItem)
     );
 
@@ -112,14 +107,14 @@ describe("addItemSaga", () => {
       .spyOn(inventoryService, "addItem")
       .mockImplementation(() => Promise.reject(new Error()));
 
-    const dispatched = [];
+    const dispatched: PayloadAction[] = [];
 
     await runSaga(
       {
         getState: () => ({ inventory: initialState }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: PayloadAction) => dispatched.push(action),
       },
-      addItemSaga,
+      addItemSaga as Saga<any[]>,
       inventoryActions.addItem(dummyItem)
     );
 

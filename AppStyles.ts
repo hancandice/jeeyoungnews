@@ -164,7 +164,7 @@ export const TwoColumnListStyle = {
     shadowRadius: 2,
     elevation: 15,
     borderRadius: 14,
-    marginBottom: 20,
+    marginVertical: 20,
     marginRight: Configuration.inventory.listing_item.offset,
     width:
       (SCREEN_WIDTH - Configuration.inventory.listing_item.offset * 3) /
@@ -181,7 +181,7 @@ export const TwoColumnListStyle = {
       numColumns,
     height: Configuration.inventory.listing_item.height,
   },
-  listingName: {
+  listingTitle: {
     paddingHorizontal: 20,
     paddingTop: 15,
     fontSize: 19,
@@ -190,7 +190,7 @@ export const TwoColumnListStyle = {
     color: AppStyles.color.categoryTitle,
     marginTop: 5,
   },
-  listingPrice: {
+  listingPubDate: {
     fontFamily: AppStyles.fontName.bold,
     color: AppStyles.color.subtitle,
     marginTop: 5,

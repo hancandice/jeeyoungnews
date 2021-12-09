@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    backgroundColor: "#F4F3EF",
+    backgroundColor: Colors.light.background,
     paddingTop: 16,
     paddingHorizontal: 20,
     borderTopRightRadius: 10,

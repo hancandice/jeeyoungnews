@@ -192,7 +192,6 @@ const styles = StyleSheet.create({
     borderRadius: imageSize,
     overflow: "hidden",
   },
-
   removeButton: {
     alignItems: "center",
     justifyContent: "center",
