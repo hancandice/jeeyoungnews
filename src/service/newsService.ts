@@ -1,5 +1,4 @@
-import { nanoid } from "@reduxjs/toolkit";
-import { NewsItem } from "../modules/news/types";
+import { NewsItem } from "../modules/search/types";
 import deviceStorage from "../utils/DeviceStorage";
 
 const BASE_URL = "https://www.nytimes.com/";
@@ -18,13 +17,10 @@ function textLengthOverCut(
   }
   return txt;
 }
+
 function setHeadlinePhoto(multimedia: any) {
   if (multimedia.length === 0) return DEFAULT_PHOTO_URL;
   else return BASE_URL + multimedia[0].url;
-}
-
-async function getClippedNews() {
-  return await deviceStorage.getClippedNews();
 }
 
 async function getSearchHistory() {
@@ -45,7 +41,7 @@ async function fetchNewsWithKeyword(keyword: string, page: number = 0) {
             resolve(docs);
           } else {
             const news: NewsItem[] = docs.map((doc: any) => ({
-              id: nanoid(),
+              id: doc._id,
               web_url: doc.web_url,
               photo: setHeadlinePhoto(doc.multimedia),
               headline_main: textLengthOverCut(doc.headline.main),
@@ -64,7 +60,6 @@ async function fetchNewsWithKeyword(keyword: string, page: number = 0) {
 }
 
 const newsService = {
-  getClippedNews,
   getSearchHistory,
   fetchNewsWithKeyword,
 };

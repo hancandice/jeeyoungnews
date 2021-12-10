@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import inventory from "../modules/inventory/reducer";
-import news from "../modules/news/reducer";
+import search from "../modules/search/reducer";
+import clipped from "../modules/clipped/reducer";
 
 const AppReducer = combineReducers({
-  inventory,
-  news,
+  search,
+  clipped,
 });
 
 export default AppReducer;

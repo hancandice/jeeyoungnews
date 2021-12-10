@@ -1,13 +1,12 @@
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { inventoryActions } from "../modules/inventory/reducer";
+import { clippedActions } from "../modules/clipped/reducer";
 
-export function useInventoryActions() {
+export function useClippedActions() {
   const dispatch = useDispatch();
-
   return useMemo(
-    () => bindActionCreators(inventoryActions, dispatch),
+    () => bindActionCreators(clippedActions, dispatch),
     [dispatch]
   );
 }

@@ -1,25 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NewsItem, NewsState, SearchNewsPayloads } from "./types";
+import { NewsItem, SearchState, SearchNewsPayloads } from "./types";
 
-export const initialState: NewsState = {
+export const initialState: SearchState = {
   loading: true,
   error: null,
   data: [],
   searchHistory: [],
-  clippedNews: [],
 };
 
-const newsSlice = createSlice({
-  name: "news",
+const searchSlice = createSlice({
+  name: "search",
   initialState,
   reducers: {
     receiveSearchHistory(state, action: PayloadAction<string[]>) {
       state.loading = false;
       state.searchHistory = action.payload;
-    },
-    receiveClippedNews(state, action: PayloadAction<NewsItem[]>) {
-      state.loading = false;
-      state.clippedNews = action.payload;
     },
     fetchNewsWithKeyword(state, action: PayloadAction<SearchNewsPayloads>) {
       state.loading = true;
@@ -36,5 +31,5 @@ const newsSlice = createSlice({
   },
 });
 
-export const newsActions = newsSlice.actions;
-export default newsSlice.reducer;
+export const searchActions = searchSlice.actions;
+export default searchSlice.reducer;

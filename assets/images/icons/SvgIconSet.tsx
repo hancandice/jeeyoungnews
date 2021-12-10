@@ -2,7 +2,8 @@ import React from "react";
 import Svg, { Path, G, Circle, Rect } from "react-native-svg";
 import Colors from "../../../constants/Colors";
 interface Props {
-  focused: boolean;
+  focused?: boolean;
+  size?: number;
 }
 
 function HomeTabIcon({ focused }: Props) {
@@ -153,6 +154,22 @@ function EurosIcon() {
   );
 }
 
+function ClipIcon({ size }: Props) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 26 26" fill="none">
+      <Circle cx="13" cy="13" r="13" fill="black" fill-opacity="0.7" />
+      <Path
+        d="M10.424 15.0251C10.6179 14.8227 10.9403 14.8192 11.1385 15.0174L11.2847 15.1636C11.477 15.356 11.4804 15.6667 11.2922 15.8631L7.25367 20.0781C7.05973 20.2805 6.73731 20.284 6.53909 20.0858L6.3929 19.9396C6.20058 19.7473 6.19726 19.4365 6.38542 19.2401L10.424 15.0251Z"
+        fill="white"
+      />
+      <Path
+        d="M14.257 18.3964L7.72499 11.8649C9.01388 10.576 11.1377 10.6233 12.0385 10.808L14.9865 6.77452C17.2259 7.70806 18.4135 8.89564 19.3287 11.1168L15.2952 14.0647C15.7414 15.7243 15.1476 17.5057 14.257 18.3964Z"
+        stroke="white"
+      />
+    </Svg>
+  );
+}
+
 const SvgIconSet = {
   InsuranceTabIcon,
   HomeTabIcon,
@@ -164,6 +181,7 @@ const SvgIconSet = {
   DefaultPhotoIcon,
   BottomArrowSmall,
   EurosIcon,
+  ClipIcon,
 };
 
 export default SvgIconSet;

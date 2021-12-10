@@ -12,10 +12,9 @@ export type SearchNewsPayloads = {
   first: boolean;
 };
 
-export type NewsState = {
+export type SearchState = {
   loading: boolean;
   error: any;
   data: NewsItem[];
   searchHistory: string[];
-  clippedNews: NewsItem[];
 };

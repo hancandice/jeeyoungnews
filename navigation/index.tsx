@@ -11,8 +11,8 @@ import { ColorSchemeName } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ClippedScreen from "../src/screens/ClippedScreen";
+import ModalScreen from "../src/screens/ModalScreen";
 import NotFoundScreen from "../src/screens/NotFoundScreen";
-import PostModalScreen from "../src/screens/PostModalScreen";
 import SearchScreen from "../src/screens/SearchScreen";
 import {
   RootStackParamList,
@@ -57,8 +57,8 @@ function RootNavigator() {
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen
-          name="PostModal"
-          component={PostModalScreen}
+          name="Modal"
+          component={ModalScreen}
           options={{ headerShown: false }}
         />
       </Stack.Group>

@@ -6,6 +6,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TouchableOpacity,
 } from "react-native";
 import { ifIphoneX } from "react-native-iphone-x-helper";
 import { TwoColumnListStyle } from "../../AppStyles";
@@ -16,7 +17,7 @@ import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import SearchBar from "../components/SearchBar";
 import TNActivityIndicator from "../components/TNActivityIndicator";
 import { useSearch } from "../hooks/useSearch";
-import { NewsItem } from "../modules/news/types";
+import { NewsItem } from "../modules/search/types";
 
 export default React.memo(function SearchScreen(
   props: RootTabScreenProps<"검색">
@@ -27,27 +28,6 @@ export default React.memo(function SearchScreen(
   const [keyword, setKeyword] = React.useState("");
   const [searchHistory, setSearchHistory] =
     React.useState<string[]>(retriedSearchHistory);
-
-  const renderListingItem = React.useCallback(
-    ({ item }: { item: NewsItem }) => {
-      return (
-        <View style={TwoColumnListStyle.listingItemContainer}>
-          <Image
-            resizeMode="cover"
-            style={TwoColumnListStyle.listingPhoto}
-            source={{ uri: item.photo }}
-          />
-          <Text style={TwoColumnListStyle.listingTitle}>
-            {item.headline_main}
-          </Text>
-          <Text style={TwoColumnListStyle.listingPubDate}>
-            ✍🏻 {item.pub_date}
-          </Text>
-        </View>
-      );
-    },
-    []
-  );
 
   const keyExtractor = React.useCallback((item) => item.id, []);
 
@@ -73,6 +53,33 @@ export default React.memo(function SearchScreen(
       });
     }
   };
+
+  const onPress = () => {
+    // console.log(webUrl);
+  };
+
+  const renderListingItem = React.useCallback(
+    ({ item }: { item: NewsItem }) => {
+      return (
+        <TouchableOpacity onPress={onPress}>
+          <View style={TwoColumnListStyle.listingItemContainer}>
+            <Image
+              resizeMode="cover"
+              style={TwoColumnListStyle.listingPhoto}
+              source={{ uri: item.photo }}
+            />
+            <Text style={TwoColumnListStyle.listingTitle}>
+              {item.headline_main}
+            </Text>
+            <Text style={TwoColumnListStyle.listingPubDate}>
+              ✍🏻 {item.pub_date}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    []
+  );
 
   return (
     <View style={styles.container}>

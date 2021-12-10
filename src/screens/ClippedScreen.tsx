@@ -12,29 +12,34 @@ import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import TNActivityIndicator from "../components/TNActivityIndicator";
-import { useInventoryState } from "../hooks/useInventoryState";
-import { InventoryItem } from "../service/inventory";
-import deviceStorage from "../utils/DeviceStorage";
+import { useClipped } from "../hooks/useClipped";
+import { NewsItem } from "../modules/search/types";
 
 export default React.memo(function ClippedScreen(
   props: RootTabScreenProps<"클립한뉴스">
 ) {
-  const { loading, error, data } = useInventoryState();
+  const [actions, clippedNews, loading] = useClipped();
+
+  const onPress = () => {};
 
   const renderListingItem = React.useCallback(
-    ({ item }: { item: InventoryItem }) => {
+    ({ item }: { item: NewsItem }) => {
       return (
-        <View style={TwoColumnListStyle.listingItemContainer}>
-          <Image
-            resizeMode="cover"
-            style={TwoColumnListStyle.listingPhoto}
-            source={{ uri: item.photo }}
-          />
-          <Text style={TwoColumnListStyle.listingName}>{item.name}</Text>
-          <Text style={TwoColumnListStyle.listingPrice}>
-            €{item.purchasePrice}
-          </Text>
-        </View>
+        <TouchableOpacity onPress={onPress}>
+          <View style={TwoColumnListStyle.listingItemContainer}>
+            <Image
+              resizeMode="cover"
+              style={TwoColumnListStyle.listingPhoto}
+              source={{ uri: item.photo }}
+            />
+            <Text style={TwoColumnListStyle.listingTitle}>
+              {item.headline_main}
+            </Text>
+            <Text style={TwoColumnListStyle.listingPubDate}>
+              ✍🏻 {item.pub_date}
+            </Text>
+          </View>
+        </TouchableOpacity>
       );
     },
     []
@@ -42,30 +47,19 @@ export default React.memo(function ClippedScreen(
 
   const keyExtractor = React.useCallback((item) => `${item.id}`, []);
 
-  const onLongPress = React.useCallback(() => {
-    deviceStorage.clearAsyncStorage();
-    alert("Cleared AsyncStorage");
-  }, []);
-
-  const onPress = React.useCallback(() => {
-    props.navigation.navigate("PostModal");
-  }, [props.navigation.navigate]);
-
   const onContentSizeChange = React.useCallback(
     () => scrollViewRef.current?.scrollToEnd({ animated: true }),
     []
   );
 
-  const scrollViewRef = React.useRef() as React.RefObject<
-    FlatList<InventoryItem>
-  >;
+  const scrollViewRef = React.useRef() as React.RefObject<FlatList<NewsItem>>;
 
   return (
     <View style={styles.container}>
       <View style={styles.rowContainer}>
         <Text style={styles.boldTxt}>클립한 뉴스</Text>
-        <TouchableOpacity onLongPress={onLongPress} onPress={onPress}>
-          <SvgIconSet.AddIcon />
+        <TouchableOpacity>
+          <SvgIconSet.ClipIcon size={35} />
         </TouchableOpacity>
       </View>
       <FlatList
@@ -75,7 +69,7 @@ export default React.memo(function ClippedScreen(
         showsHorizontalScrollIndicator={false}
         removeClippedSubviews={true}
         numColumns={2}
-        data={data}
+        data={clippedNews}
         renderItem={renderListingItem}
         keyExtractor={keyExtractor}
       />
