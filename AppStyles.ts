@@ -1,8 +1,8 @@
-import { Platform, StyleSheet, Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { Configuration } from "./Configuration";
 
 const { width, height } = Dimensions.get("window");
-const SCREEN_WIDTH = width < height ? width : height;
+export const SCREEN_WIDTH = width < height ? width : height;
 const numColumns = 2;
 export const imageSize = height * 0.14;
 

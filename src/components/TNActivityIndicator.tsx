@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { UIActivityIndicator } from "react-native-indicators";
 
-type ActivityIndicatorProps = {
+type TNActivityIndicatorProps = {
   text?: string;
 };
 
-const ActivityIndicator = (props: ActivityIndicatorProps) => {
+const TNActivityIndicator = (props: TNActivityIndicatorProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.indicatorContainer}>
@@ -23,7 +23,7 @@ const ActivityIndicator = (props: ActivityIndicatorProps) => {
   );
 };
 
-export default ActivityIndicator;
+export default TNActivityIndicator;
 
 const styles = StyleSheet.create({
   container: {

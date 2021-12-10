@@ -11,7 +11,7 @@ import SvgIconSet from "../../assets/images/icons/SvgIconSet";
 import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
-import ActivityIndicator from "../components/ActivityIndicator";
+import TNActivityIndicator from "../components/TNActivityIndicator";
 import { useInventoryState } from "../hooks/useInventoryState";
 import { InventoryItem } from "../service/inventory";
 import deviceStorage from "../utils/DeviceStorage";
@@ -79,7 +79,7 @@ export default React.memo(function ClippedScreen(
         renderItem={renderListingItem}
         keyExtractor={keyExtractor}
       />
-      {loading && <ActivityIndicator />}
+      {loading && <TNActivityIndicator />}
     </View>
   );
 });

@@ -24,23 +24,23 @@ function setHeadlinePhoto(multimedia: any) {
 }
 
 async function getClippedNews() {
-  return deviceStorage.getClippedNews();
+  return await deviceStorage.getClippedNews();
 }
 
 async function getSearchHistory() {
-  return deviceStorage.getSearchHistory();
+  return await deviceStorage.getSearchHistory();
 }
 
-function fetchNewsWithKeyword(keyword: string, page: number = 0) {
+async function fetchNewsWithKeyword(keyword: string, page: number = 0) {
   const FETCH_ENDPOINT = `${BASE_API_URL}articlesearch.json?q=${keyword}&page=${page}&api-key=${API_KEY}`;
   console.log("FETCH_ENDPOINT", FETCH_ENDPOINT);
 
-  return new Promise(function (resolve, _reject) {
+  return await new Promise(function (resolve, reject) {
     fetch(FETCH_ENDPOINT)
       .then((response) => response.json())
       .then((json) => {
         if (json) {
-          const docs = json.response.docs;
+          const { docs } = json.response;
           if (docs.length === 0) {
             resolve(docs);
           } else {
@@ -58,7 +58,7 @@ function fetchNewsWithKeyword(keyword: string, page: number = 0) {
       })
       .catch((err) => {
         console.log("Error fetching rates: ", err);
-        resolve(null);
+        reject(err);
       });
   });
 }

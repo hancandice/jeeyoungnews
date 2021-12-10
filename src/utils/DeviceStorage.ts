@@ -6,8 +6,8 @@ const INVENTORY_ITEMS = "INVENTORY_ITEMS";
 const SEARCH_HISTORY = "SEARCH_HISTORY";
 const CLIPPED_NEWS = "CLIPPED_NEWS";
 
-const getSearchHistory = () => {
-  return new Promise(function (resolve, _) {
+const getSearchHistory = async () => {
+  return await new Promise(function (resolve, _) {
     AsyncStorage.getItem(SEARCH_HISTORY)
       .then((items) => {
         const result = items ? JSON.parse(items) : [];
@@ -21,8 +21,8 @@ const getSearchHistory = () => {
   });
 };
 
-const getClippedNews = () => {
-  return new Promise(function (resolve, _) {
+const getClippedNews = async () => {
+  return await new Promise(function (resolve, _) {
     AsyncStorage.getItem(CLIPPED_NEWS)
       .then((items) => {
         const result = items ? JSON.parse(items) : [];
@@ -36,8 +36,8 @@ const getClippedNews = () => {
   });
 };
 
-const getInventoryItems = () => {
-  return new Promise(function (resolve, reject) {
+const getInventoryItems = async () => {
+  return await new Promise(function (resolve, reject) {
     AsyncStorage.getItem(INVENTORY_ITEMS)
       .then((items) => {
         const result = items ? JSON.parse(items) : [];
@@ -52,7 +52,7 @@ const getInventoryItems = () => {
 };
 
 const setInventoryItems = async (items: InventoryItem[]) => {
-  return new Promise(function (resolve, reject) {
+  return await new Promise(function (resolve, reject) {
     AsyncStorage.setItem(INVENTORY_ITEMS, JSON.stringify(items))
       .then(() => {
         AsyncStorage.getItem(INVENTORY_ITEMS)
@@ -75,7 +75,7 @@ const setInventoryItems = async (items: InventoryItem[]) => {
 
 const clearAsyncStorage = async () => {
   AsyncStorage.clear();
-  return new Promise(function (resolve, _reject) {
+  return await new Promise(function (resolve, _reject) {
     AsyncStorage.getItem(INVENTORY_ITEMS)
       .then((items) => {
         const result = items ? JSON.parse(items) : [];

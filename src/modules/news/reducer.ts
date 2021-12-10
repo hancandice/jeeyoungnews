@@ -25,12 +25,13 @@ const newsSlice = createSlice({
       state.loading = true;
     },
     fetchNewsWithKeywordSuccess(state, action: PayloadAction<NewsItem[]>) {
-      state.loading = false;
       state.data = action.payload;
+      state.error = null;
+      state.loading = false;
     },
     fetchNewsWithKeywordError(state, action: PayloadAction<any>) {
-      state.loading = false;
       state.error = action.payload;
+      state.loading = false;
     },
   },
 });

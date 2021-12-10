@@ -33,22 +33,25 @@ export function* fetchNewsWithKeywordSaga(
   action: ReturnType<typeof newsActions.fetchNewsWithKeyword>
 ) {
   const { data }: NewsState = yield select(getNews);
-  try {
-    const newsItemList: NewsItem[] = yield call(
-      newsService.fetchNewsWithKeyword,
-      action.payload.keyword,
-      action.payload.first ? 0 : Math.ceil(data.length / 10)
-    );
-    console.log("newsItemList", newsItemList);
-    if (action.payload.first) {
-      yield put(newsActions.fetchNewsWithKeywordSuccess(newsItemList));
-    } else {
-      yield put(
-        newsActions.fetchNewsWithKeywordSuccess(data.concat(newsItemList))
+  while (true) {
+    try {
+      const newsItemList: NewsItem[] = yield call(
+        newsService.fetchNewsWithKeyword,
+        action.payload.keyword,
+        action.payload.first ? 0 : Math.ceil(data.length / 10)
       );
+      if (action.payload.first) {
+        yield put(newsActions.fetchNewsWithKeywordSuccess(newsItemList));
+      } else {
+        yield put(
+          newsActions.fetchNewsWithKeywordSuccess(data.concat(newsItemList))
+        );
+      }
+      break;
+    } catch (e: any) {
+      yield put(newsActions.fetchNewsWithKeywordError(e));
+      yield delay(1000 * 5);
     }
-  } catch (e: any) {
-    yield put(newsActions.fetchNewsWithKeywordError(e));
   }
 }
 

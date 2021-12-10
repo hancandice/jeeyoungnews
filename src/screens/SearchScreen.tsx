@@ -1,12 +1,20 @@
 import * as React from "react";
-import { FlatList, Image, Platform, StyleSheet, Text } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { ifIphoneX } from "react-native-iphone-x-helper";
 import { TwoColumnListStyle } from "../../AppStyles";
 import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
-import ActivityIndicator from "../components/ActivityIndicator";
+import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import SearchBar from "../components/SearchBar";
+import TNActivityIndicator from "../components/TNActivityIndicator";
 import { useSearch } from "../hooks/useSearch";
 import { NewsItem } from "../modules/news/types";
 
@@ -76,7 +84,7 @@ export default React.memo(function SearchScreen(
           value={keyword}
         />
       </View>
-      <Text>{searchHistory}</Text>
+      <Text>searchHistory: {searchHistory}</Text>
       <FlatList
         showsVerticalScrollIndicator={true}
         showsHorizontalScrollIndicator={false}
@@ -88,7 +96,8 @@ export default React.memo(function SearchScreen(
         renderItem={renderListingItem}
         keyExtractor={keyExtractor}
       />
-      {loading && <ActivityIndicator />}
+      {error && <CustomActivityIndicator />}
+      {loading && <TNActivityIndicator />}
     </View>
   );
 });
