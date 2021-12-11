@@ -12,8 +12,8 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ClippedScreen from "../src/screens/ClippedScreen";
 import ModalScreen from "../src/screens/ModalScreen";
-import NotFoundScreen from "../src/screens/NotFoundScreen";
 import SearchScreen from "../src/screens/SearchScreen";
+import WebViewScreen from "../src/screens/WebViewScreen";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -51,9 +51,10 @@ function RootNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
+        name="WebView"
+        component={WebViewScreen}
+        initialParams={{ webUrl: "https://chezcandy.fun" }}
+        options={{ headerShown: false }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen

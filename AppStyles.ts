@@ -182,10 +182,10 @@ export const TwoColumnListStyle = {
     height: Configuration.inventory.listing_item.height,
   },
   listingTitle: {
+    paddingVertical: 15,
     paddingHorizontal: 20,
-    paddingTop: 15,
-    fontSize: 19,
-    height: 52,
+    fontSize: 17,
+    height: 100,
     fontFamily: AppStyles.fontName.bold,
     color: AppStyles.color.categoryTitle,
     marginTop: 5,

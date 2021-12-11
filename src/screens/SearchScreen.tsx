@@ -15,6 +15,7 @@ import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import SearchBar from "../components/SearchBar";
+import SearchHistory from "../components/SearchHistory";
 import TNActivityIndicator from "../components/TNActivityIndicator";
 import { useSearch } from "../hooks/useSearch";
 import { NewsItem } from "../modules/search/types";
@@ -23,8 +24,8 @@ export default React.memo(function SearchScreen(
   props: RootTabScreenProps<"검색">
 ) {
   const [
-    searchActions,
-    clippedActions,
+    { fetchNewsWithKeyword, clip },
+
     data,
     loading,
     error,
@@ -39,7 +40,7 @@ export default React.memo(function SearchScreen(
   }, []);
 
   const onSearchBarSubmit = () => {
-    searchActions.fetchNewsWithKeyword({
+    fetchNewsWithKeyword({
       keyword,
       first: true,
     });
@@ -49,7 +50,7 @@ export default React.memo(function SearchScreen(
     if (loading) {
       return;
     } else {
-      searchActions.fetchNewsWithKeyword({
+      fetchNewsWithKeyword({
         keyword,
         first: false,
       });
@@ -57,14 +58,21 @@ export default React.memo(function SearchScreen(
   };
 
   const onNewsPress = (item: NewsItem) => {
-    // console.log(webUrl);
+    props.navigation.navigate("WebView", {
+      webUrl: item.web_url,
+    });
   };
 
   const clipNews = (item: NewsItem) => {
     console.log("news item: ", item);
     if (item.clipped === false) {
-      searchActions.clip({ ...item, clipped: !item.clipped });
+      clip({ ...item, clipped: !item.clipped });
     }
+  };
+
+  const onKeywordPress = (keyword: string) => {
+    console.log("keyword", keyword);
+    setKeyword(keyword);
   };
 
   const renderListingItem = React.useCallback(
@@ -110,7 +118,12 @@ export default React.memo(function SearchScreen(
           value={keyword}
         />
       </View>
-      <Text>searchHistory: {retrievedSearchHistory}</Text>
+      <View style={{ paddingVertical: 10 }}>
+        <SearchHistory
+          data={retrievedSearchHistory}
+          onKeywordPress={onKeywordPress}
+        />
+      </View>
       <FlatList
         showsVerticalScrollIndicator={true}
         showsHorizontalScrollIndicator={false}

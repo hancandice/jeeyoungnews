@@ -16,7 +16,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Root: {
         screens: {},
       },
-      NotFound: "*",
+      WebView: "*",
     },
   },
 };

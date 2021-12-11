@@ -22,7 +22,11 @@ export default React.memo(function ClippedScreen(
 ) {
   const [actions, clippedNews, loading] = useClipped();
 
-  const onPress = () => {};
+  const onNewsPress = (item: NewsItem) => {
+    props.navigation.navigate("WebView", {
+      webUrl: item.web_url,
+    });
+  };
 
   const unclipNews = (item: NewsItem) => {
     console.log("news item: ", item);
@@ -34,7 +38,7 @@ export default React.memo(function ClippedScreen(
   const renderListingItem = React.useCallback(
     ({ item }: { item: NewsItem }) => {
       return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={() => onNewsPress(item)}>
           <View style={TwoColumnListStyle.listingItemContainer}>
             <Image
               resizeMode="cover"

@@ -1,5 +1,5 @@
 import React from "react";
-import Svg, { Path, G, Circle, Rect } from "react-native-svg";
+import Svg, { Path, G, Circle, Rect, Defs } from "react-native-svg";
 import Colors from "../../../constants/Colors";
 interface Props {
   focused?: boolean;
@@ -192,6 +192,25 @@ function CheckedCircle({ size }: Props) {
   );
 }
 
+function LeftArrow({ size }: Props) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 11 22" fill="none">
+      <Path
+        d="M1.0596 11.9227C0.814211 11.9227 0.568823 11.854 0.358491 11.6476C-0.0621733 11.2693 -0.132284 10.6158 0.253325 10.2031L5.12602 4.80338C5.51163 4.39066 6.17768 4.32188 6.59835 4.7002C7.01901 5.07852 7.08912 5.73199 6.70351 6.14471L1.83082 11.5788C1.65554 11.7852 1.34004 11.9227 1.0596 11.9227Z"
+        fill="black"
+      />
+      <Path
+        d="M8.17554 3.90917C7.93015 3.90917 7.64971 3.806 7.47443 3.63403C7.05377 3.25571 7.01872 2.60224 7.40432 2.18952L9.15709 0.332294C9.5427 -0.0804231 10.2088 -0.114816 10.6294 0.263508C11.0501 0.641832 11.0851 1.2953 10.6995 1.70802L8.94676 3.56524C8.73643 3.806 8.45598 3.90917 8.17554 3.90917Z"
+        fill="black"
+      />
+      <Path
+        d="M9.92877 21.9999C9.64832 21.9999 9.33283 21.8967 9.15755 21.656L0.288544 11.7852C-0.0970653 11.3725 -0.0620099 10.719 0.39371 10.3407C0.814374 9.96234 1.48043 9.99673 1.86604 10.4438L10.735 20.2803C11.1207 20.693 11.0856 21.3465 10.6299 21.7248C10.4195 21.9311 10.1742 21.9999 9.92877 21.9999Z"
+        fill="black"
+      />
+    </Svg>
+  );
+}
+
 const SvgIconSet = {
   InsuranceTabIcon,
   HomeTabIcon,
@@ -205,6 +224,7 @@ const SvgIconSet = {
   EurosIcon,
   ClipIcon,
   CheckedCircle,
+  LeftArrow,
 };
 
 export default SvgIconSet;

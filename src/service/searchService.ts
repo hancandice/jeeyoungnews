@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { NewsItem } from "../modules/search/types";
 import deviceStorage from "../utils/DeviceStorage";
 
@@ -9,7 +10,7 @@ const DEFAULT_PHOTO_URL =
 
 function textLengthOverCut(
   txt: string,
-  len: number = 15,
+  len: number = 40,
   lastTxt: string = "..."
 ) {
   if (txt.length > len) {
@@ -44,7 +45,10 @@ async function fetchNewsWithKeyword(keyword: string, page: number = 0) {
               id: doc._id,
               web_url: doc.web_url,
               photo: setHeadlinePhoto(doc.multimedia),
-              headline_main: textLengthOverCut(doc.headline.main),
+              headline_main:
+                Platform.OS === "ios"
+                  ? textLengthOverCut(doc.headline.main)
+                  : textLengthOverCut(doc.headline.main, 38),
               pub_date: textLengthOverCut(doc.pub_date, 10, ""),
               clipped: false,
             }));
