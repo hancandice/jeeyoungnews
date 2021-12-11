@@ -91,9 +91,9 @@ function AddIcon() {
   );
 }
 
-function TrashBinIcon() {
+function TrashBinIcon({ size }: Props) {
   return (
-    <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+    <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
       <Rect width="32" height="32" rx="16" fill="#D95762" />
       <Path
         fill-rule="evenodd"
@@ -170,6 +170,28 @@ function ClipIcon({ size }: Props) {
   );
 }
 
+function CheckedCircle({ size }: Props) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <Circle
+        cx="10"
+        cy="10"
+        r="9.75"
+        fill="pink"
+        stroke="black"
+        stroke-width="0.5"
+      />
+      <Path
+        d="M15 7L8.3333 13.3636L5 10.1818"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+}
+
 const SvgIconSet = {
   InsuranceTabIcon,
   HomeTabIcon,
@@ -182,6 +204,7 @@ const SvgIconSet = {
   BottomArrowSmall,
   EurosIcon,
   ClipIcon,
+  CheckedCircle,
 };
 
 export default SvgIconSet;

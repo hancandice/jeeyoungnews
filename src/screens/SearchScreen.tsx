@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   Platform,
@@ -10,6 +9,7 @@ import {
 } from "react-native";
 import { ifIphoneX } from "react-native-iphone-x-helper";
 import { TwoColumnListStyle } from "../../AppStyles";
+import SvgIconSet from "../../assets/images/icons/SvgIconSet";
 import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
@@ -22,13 +22,16 @@ import { NewsItem } from "../modules/search/types";
 export default React.memo(function SearchScreen(
   props: RootTabScreenProps<"검색">
 ) {
-  const [{ fetchNewsWithKeyword }, data, loading, error, retriedSearchHistory] =
-    useSearch();
+  const [
+    searchActions,
+    clippedActions,
+    data,
+    loading,
+    error,
+    retrievedSearchHistory,
+  ] = useSearch();
 
   const [keyword, setKeyword] = React.useState("");
-  const [searchHistory, setSearchHistory] =
-    React.useState<string[]>(retriedSearchHistory);
-
   const keyExtractor = React.useCallback((item) => item.id, []);
 
   const onSearchTextChange = React.useCallback((text: string) => {
@@ -36,8 +39,7 @@ export default React.memo(function SearchScreen(
   }, []);
 
   const onSearchBarSubmit = () => {
-    setSearchHistory((searchHistory) => searchHistory.concat(keyword));
-    fetchNewsWithKeyword({
+    searchActions.fetchNewsWithKeyword({
       keyword,
       first: true,
     });
@@ -47,27 +49,44 @@ export default React.memo(function SearchScreen(
     if (loading) {
       return;
     } else {
-      fetchNewsWithKeyword({
+      searchActions.fetchNewsWithKeyword({
         keyword,
         first: false,
       });
     }
   };
 
-  const onPress = () => {
+  const onNewsPress = (item: NewsItem) => {
     // console.log(webUrl);
+  };
+
+  const clipNews = (item: NewsItem) => {
+    console.log("news item: ", item);
+    if (item.clipped === false) {
+      searchActions.clip({ ...item, clipped: !item.clipped });
+    }
   };
 
   const renderListingItem = React.useCallback(
     ({ item }: { item: NewsItem }) => {
       return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={() => onNewsPress(item)}>
           <View style={TwoColumnListStyle.listingItemContainer}>
             <Image
               resizeMode="cover"
               style={TwoColumnListStyle.listingPhoto}
               source={{ uri: item.photo }}
             />
+            <TouchableOpacity
+              style={styles.clipButton}
+              onPress={() => clipNews(item)}
+            >
+              {item.clipped ? (
+                <SvgIconSet.CheckedCircle size={25} />
+              ) : (
+                <SvgIconSet.ClipIcon size={25} />
+              )}
+            </TouchableOpacity>
             <Text style={TwoColumnListStyle.listingTitle}>
               {item.headline_main}
             </Text>
@@ -91,7 +110,7 @@ export default React.memo(function SearchScreen(
           value={keyword}
         />
       </View>
-      <Text>searchHistory: {searchHistory}</Text>
+      <Text>searchHistory: {retrievedSearchHistory}</Text>
       <FlatList
         showsVerticalScrollIndicator={true}
         showsHorizontalScrollIndicator={false}
@@ -145,5 +164,17 @@ const styles = StyleSheet.create({
     fontSize: 34,
     fontWeight: "bold",
     color: "#2C2302",
+  },
+  clipButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#d6d6d6",
+    opacity: 1,
+    zIndex: 2,
+    marginTop: -35,
+    marginLeft: 5,
+    width: 30,
+    height: 30,
+    borderRadius: 30,
   },
 });

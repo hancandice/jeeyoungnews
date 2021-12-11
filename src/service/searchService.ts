@@ -59,9 +59,21 @@ async function fetchNewsWithKeyword(keyword: string, page: number = 0) {
   });
 }
 
-const newsService = {
+async function addSearchKeyword(prevItems: string[], newItem: string) {
+  const nextItems = prevItems.concat(newItem);
+  return await deviceStorage.setSearchHistory(nextItems);
+}
+
+async function clip(prevItems: NewsItem[], newItem: NewsItem) {
+  const nextItems = prevItems.concat(newItem);
+  return await deviceStorage.setClippedNews(nextItems);
+}
+
+const searchService = {
   getSearchHistory,
   fetchNewsWithKeyword,
+  addSearchKeyword,
+  clip,
 };
 
-export default newsService;
+export default searchService;

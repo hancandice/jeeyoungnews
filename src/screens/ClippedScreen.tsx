@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -14,6 +15,7 @@ import { RootTabScreenProps } from "../../types";
 import TNActivityIndicator from "../components/TNActivityIndicator";
 import { useClipped } from "../hooks/useClipped";
 import { NewsItem } from "../modules/search/types";
+import deviceStorage from "../utils/DeviceStorage";
 
 export default React.memo(function ClippedScreen(
   props: RootTabScreenProps<"클립한뉴스">
@@ -21,6 +23,13 @@ export default React.memo(function ClippedScreen(
   const [actions, clippedNews, loading] = useClipped();
 
   const onPress = () => {};
+
+  const unclipNews = (item: NewsItem) => {
+    console.log("news item: ", item);
+    if (item.clipped === true) {
+      actions.unclip(item.id);
+    }
+  };
 
   const renderListingItem = React.useCallback(
     ({ item }: { item: NewsItem }) => {
@@ -32,6 +41,12 @@ export default React.memo(function ClippedScreen(
               style={TwoColumnListStyle.listingPhoto}
               source={{ uri: item.photo }}
             />
+            <TouchableOpacity
+              style={styles.unclipButton}
+              onPress={() => unclipNews(item)}
+            >
+              {item.clipped ? <SvgIconSet.TrashBinIcon size={25} /> : null}
+            </TouchableOpacity>
             <Text style={TwoColumnListStyle.listingTitle}>
               {item.headline_main}
             </Text>
@@ -54,11 +69,16 @@ export default React.memo(function ClippedScreen(
 
   const scrollViewRef = React.useRef() as React.RefObject<FlatList<NewsItem>>;
 
+  const onLongPress = React.useCallback(() => {
+    deviceStorage.clearAsyncStorage();
+    Alert.alert("device storage cleared!");
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.rowContainer}>
         <Text style={styles.boldTxt}>클립한 뉴스</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onLongPress={onLongPress}>
           <SvgIconSet.ClipIcon size={35} />
         </TouchableOpacity>
       </View>
@@ -99,5 +119,17 @@ const styles = StyleSheet.create({
     fontSize: 34,
     fontWeight: "bold",
     color: "#2C2302",
+  },
+  unclipButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#d6d6d6",
+    opacity: 1,
+    zIndex: 2,
+    marginTop: -35,
+    marginLeft: 5,
+    width: 30,
+    height: 30,
+    borderRadius: 30,
   },
 });

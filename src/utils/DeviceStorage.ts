@@ -78,11 +78,16 @@ const setSearchHistory = async (items: string[]) => {
   });
 };
 
+const clearAsyncStorage = async () => {
+  AsyncStorage.clear();
+};
+
 const deviceStorage = {
   getClippedNews,
   setClippedNews,
   getSearchHistory,
   setSearchHistory,
+  clearAsyncStorage,
 };
 
 export default deviceStorage;
