@@ -57,7 +57,7 @@ async function fetchNewsWithKeyword(keyword: string, page: number = 0) {
         }
       })
       .catch((err) => {
-        console.log("Error fetching rates: ", err);
+        console.log("Error fetching news: ", err);
         reject(err);
       });
   });

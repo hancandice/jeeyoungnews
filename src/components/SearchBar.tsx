@@ -10,7 +10,7 @@ type SearchBarProps = {
   value: string;
 };
 
-export default function SearchBar(props: SearchBarProps) {
+export default React.memo(function SearchBar(props: SearchBarProps) {
   const { placeholderTitle, onChangeText, onSearchBarSubmit, value } = props;
 
   const searchIcon = require("../../assets/images/icons/search.png");
@@ -34,7 +34,7 @@ export default function SearchBar(props: SearchBarProps) {
       <Button onPress={onSearchBarSubmit} title="검색" type="clear" />
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

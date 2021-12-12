@@ -23,7 +23,7 @@ const TNActivityIndicator = (props: TNActivityIndicatorProps) => {
   );
 };
 
-export default TNActivityIndicator;
+export default React.memo(TNActivityIndicator);
 
 const styles = StyleSheet.create({
   container: {

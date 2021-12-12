@@ -14,9 +14,6 @@
   <img src="assets/images/preview/3.png" width="50%">
 </p>
 <p align="center">
-  <img src="assets/images/preview/3-5.png" width="50%">
-</p>
-<p align="center">
   <img src="assets/images/preview/4.png" width="50%">
 </p>
 <p align="center">
@@ -55,13 +52,19 @@ npm install
 yarn
 ```
 
+을 프로젝트 폴더 내에서 실행합니다.
+
+<br />
+
 그리고 리액트 네이티브의 자바스크립트 번들러인 Metro를 시작해야 합니다.
 
-Metro를 시작하려면 프로젝트 폴더 내에서 **expo start** 명령을 실행하기만 하면 됩니다.
+이 앱은 expo로 만들어졌으므로 Metro를 시작하려면 프로젝트 폴더 내에서 **expo start** 명령을 실행하기만 하면 됩니다.
 
 ```
 expo start
 ```
+
+<br />
 
 Metro 번들러 내부에서
 **Run on Android device/emulator** 또는 **Run on iOS simulator**을 클릭합니다.
@@ -72,7 +75,7 @@ Metro 번들러 내부에서
 expo start --android
 ```
 
-or
+또는
 
 ```
 expo start --ios

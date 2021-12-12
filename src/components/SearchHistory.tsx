@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 import KeywordCard from "./KeywordCard";
 
@@ -8,8 +8,11 @@ type SearchHistoryProps = {
 };
 
 const SearchHistory = ({ data, onKeywordPress }: SearchHistoryProps) => {
-  const renderItem = ({ item }: { item: string }) => (
-    <KeywordCard onKeywordPress={() => onKeywordPress(item)} item={item} />
+  const renderItem = useCallback(
+    ({ item }: { item: string }) => (
+      <KeywordCard onKeywordPress={() => onKeywordPress(item)} item={item} />
+    ),
+    []
   );
 
   return (
@@ -24,4 +27,4 @@ const SearchHistory = ({ data, onKeywordPress }: SearchHistoryProps) => {
   );
 };
 
-export default SearchHistory;
+export default React.memo(SearchHistory);

@@ -29,13 +29,13 @@ const KeywordCard = ({ item, onKeywordPress }: KeywordCardProps) => {
         onPress={onKeywordPress}
         style={styles.keywordTextContainerView}
       >
-        <Text style={styles.keywordText}>{item.toUpperCase()}</Text>
+        <Text style={styles.keywordText}>{item}</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
 };
 
-export default KeywordCard;
+export default React.memo(KeywordCard);
 
 const styles = StyleSheet.create({
   keywordImageContainer: {

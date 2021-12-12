@@ -10,13 +10,13 @@ import {
 import { ifIphoneX } from "react-native-iphone-x-helper";
 import { TwoColumnListStyle } from "../../AppStyles";
 import SvgIconSet from "../../assets/images/icons/SvgIconSet";
-import { View } from "../components/Themed";
-import Colors from "../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import SearchBar from "../components/SearchBar";
 import SearchHistory from "../components/SearchHistory";
+import { View } from "../components/Themed";
 import TNActivityIndicator from "../components/TNActivityIndicator";
+import Colors from "../constants/Colors";
 import { useSearch } from "../hooks/useSearch";
 import { NewsItem } from "../modules/search/types";
 
@@ -32,6 +32,7 @@ export default React.memo(function SearchScreen(
   ] = useSearch();
 
   const [keyword, setKeyword] = React.useState("");
+
   const keyExtractor = React.useCallback((item) => item.id, []);
 
   const onSearchTextChange = React.useCallback((text: string) => {
@@ -48,31 +49,39 @@ export default React.memo(function SearchScreen(
   const onEndReached = () => {
     if (loading) {
       return;
-    } else {
-      fetchNewsWithKeyword({
-        keyword,
-        first: false,
-      });
     }
-  };
-
-  const onNewsPress = (item: NewsItem) => {
-    props.navigation.navigate("WebView", {
-      webUrl: item.web_url,
+    if (error) {
+      return;
+    }
+    fetchNewsWithKeyword({
+      keyword,
+      first: false,
     });
   };
 
-  const clipNews = (item: NewsItem) => {
-    console.log("news item: ", item);
-    if (item.clipped === false) {
-      clip({ ...item, clipped: !item.clipped });
-    }
-  };
+  const onNewsPress = React.useCallback(
+    (item: NewsItem) => {
+      props.navigation.navigate("WebView", {
+        webUrl: item.web_url,
+      });
+    },
+    [props.navigation.navigate]
+  );
 
-  const onKeywordPress = (keyword: string) => {
+  const clipNews = React.useCallback(
+    (item: NewsItem) => {
+      console.log("news item: ", item);
+      if (item.clipped === false) {
+        clip({ ...item, clipped: !item.clipped });
+      }
+    },
+    [clip]
+  );
+
+  const onKeywordPress = React.useCallback((keyword: string) => {
     console.log("keyword", keyword);
     setKeyword(keyword);
-  };
+  }, []);
 
   const renderListingItem = React.useCallback(
     ({ item }: { item: NewsItem }) => {

@@ -20,20 +20,26 @@ import deviceStorage from "../utils/DeviceStorage";
 export default React.memo(function ClippedScreen(
   props: RootTabScreenProps<"클립한뉴스">
 ) {
-  const [actions, clippedNews, loading] = useClipped();
+  const [{ unclip }, clippedNews, loading] = useClipped();
 
-  const onNewsPress = (item: NewsItem) => {
-    props.navigation.navigate("WebView", {
-      webUrl: item.web_url,
-    });
-  };
+  const onNewsPress = React.useCallback(
+    (item: NewsItem) => {
+      props.navigation.navigate("WebView", {
+        webUrl: item.web_url,
+      });
+    },
+    [props.navigation.navigate]
+  );
 
-  const unclipNews = (item: NewsItem) => {
-    console.log("news item: ", item);
-    if (item.clipped === true) {
-      actions.unclip(item.id);
-    }
-  };
+  const unclipNews = React.useCallback(
+    (item: NewsItem) => {
+      console.log("news item: ", item);
+      if (item.clipped === true) {
+        unclip(item.id);
+      }
+    },
+    [unclip]
+  );
 
   const renderListingItem = React.useCallback(
     ({ item }: { item: NewsItem }) => {
