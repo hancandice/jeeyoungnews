@@ -1,4 +1,4 @@
-# Luko Tech Case Study 👩🏻‍💻 - by Jeeyoung Han
+# 숨고 코딩 과제 👩🏻‍💻 - by 한지영
 
 ---
 
@@ -40,32 +40,30 @@
 
 ## Running this app
 
-### - Running on your computer
-
-First, download all modules in **package.json**.
+먼저 **package.json**의 모든 모듈을 다운로드합니다.
 
 ```
 npm install
 ```
 
-or
+또는
 
 ```
 yarn
 ```
 
-And you will need to start Metro, the JavaScript bundler that ships with React Native.
+그리고 리액트 네이티브의 자바스크립트 번들러인 Metro를 시작해야 합니다.
 
-To start Metro, simply run **expo start** command inside your React Native project folder:
+Metro를 시작하려면 프로젝트 폴더 내에서 **expo start** 명령을 실행하기만 하면 됩니다.
 
 ```
 expo start
 ```
 
-and from the inside Metro bundler,
-click **Run on Android device/emulator** or **Run on iOS simulator**.
+Metro 번들러 내부에서
+**Run on Android device/emulator** 또는 **Run on iOS simulator**을 클릭합니다.
 
-Or you can simply type,
+또는 간단히 명령어를 입력하여 시뮬레이터로 앱을 실행할 수 있습니다.
 
 ```
 expo start --android
@@ -77,15 +75,6 @@ or
 expo start --ios
 ```
 
-to open and run the simulator.
-
-That's it! :)
-
-### - Running on your mobile device
-
-- Download the Expo app on your Android or iOS device. It's available on the Google Play Store and on the iOS App Store.
-- Within the Expo App type this link into the search bar or scan the QR code with your device at this link: https://expo.dev/@candicehan/luko-case-study-jeeyounghan
-
 ## Tools Used
 
 - [x] Expo
@@ -93,5 +82,3 @@ That's it! :)
 - [x] Redux Saga
 - [x] Typescript
 - [x] Async Storage
-# luko-refactoring
-# jeeyoungnews
