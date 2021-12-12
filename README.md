@@ -37,6 +37,9 @@
 <p align="center">
   <img src="assets/images/preview/10.png" width="50%">
 </p>
+<p align="center">
+  <img src="assets/images/preview/11.png" width="50%">
+</p>
 
 ## Running this app
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions, Image, StyleSheet, TextInput, View } from "react-native";
 import { Button } from "react-native-elements";
-import Colors from "../../constants/Colors";
+import Colors from "../constants/Colors";
 
 type SearchBarProps = {
   placeholderTitle: string;

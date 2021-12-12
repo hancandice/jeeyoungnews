@@ -3,15 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Appearance } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
-import useCachedResources from "./hooks/useCachedResources";
+import useCachedResources from "./src/hooks/useCachedResources";
 import Navigation from "./navigation";
 import configureStore from "./src/redux/store/index";
-
-process.env.NODE_ENV =
-  process.env.NODE_ENV &&
-  process.env.NODE_ENV.trim().toLowerCase() === "production"
-    ? "production"
-    : "development";
 
 const store = configureStore();
 

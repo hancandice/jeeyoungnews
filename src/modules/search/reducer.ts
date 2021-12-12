@@ -33,6 +33,7 @@ const searchSlice = createSlice({
     },
     addSearchKeywordSuccess(state, action: PayloadAction<string[]>) {
       state.loading = false;
+      state.error = null;
       state.searchHistory = action.payload;
     },
     addSearchKeywordError(state, action: PayloadAction<any>) {
@@ -44,6 +45,7 @@ const searchSlice = createSlice({
     },
     updateData(state, action: PayloadAction<NewsItem[]>) {
       state.loading = false;
+      state.error = null;
       state.data = action.payload;
     },
     clipError(state, action: PayloadAction<any>) {

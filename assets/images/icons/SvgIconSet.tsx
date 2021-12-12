@@ -1,6 +1,6 @@
 import React from "react";
 import Svg, { Path, G, Circle, Rect, Defs } from "react-native-svg";
-import Colors from "../../../constants/Colors";
+import Colors from "../../../src/constants/Colors";
 interface Props {
   focused?: boolean;
   size?: number;

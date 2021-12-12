@@ -8,8 +8,8 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import Colors from "../src/constants/Colors";
+import useColorScheme from "../src/hooks/useColorScheme";
 import ClippedScreen from "../src/screens/ClippedScreen";
 import ModalScreen from "../src/screens/ModalScreen";
 import SearchScreen from "../src/screens/SearchScreen";

@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { TwoColumnListStyle } from "../../AppStyles";
 import SvgIconSet from "../../assets/images/icons/SvgIconSet";
-import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
+import { View } from "../components/Themed";
+import Colors from "../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import TNActivityIndicator from "../components/TNActivityIndicator";
 import { useClipped } from "../hooks/useClipped";
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   unclipButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#d6d6d6",
+    backgroundColor: Colors.light.grey6,
     opacity: 1,
     zIndex: 2,
     marginTop: -35,

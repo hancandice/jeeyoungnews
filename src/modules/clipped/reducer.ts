@@ -20,13 +20,13 @@ const clippedSlice = createSlice({
       state.loading = true;
     },
     unclipSuccess(state, action: PayloadAction<NewsItem[]>) {
-      state.data = action.payload;
-      state.error = null;
       state.loading = false;
+      state.error = null;
+      state.data = action.payload;
     },
     unclipError(state, action: PayloadAction<any>) {
-      state.error = action.payload;
       state.loading = false;
+      state.error = action.payload;
     },
   },
 });

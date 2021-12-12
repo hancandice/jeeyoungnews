@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { WebView } from "react-native-webview";
 import SvgIconSet from "../../assets/images/icons/SvgIconSet";
-import Colors from "../../constants/Colors";
+import Colors from "../constants/Colors";
 import { RootStackScreenProps } from "../../types";
 
 export default function WebViewScreen({

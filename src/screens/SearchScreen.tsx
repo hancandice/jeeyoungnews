@@ -10,8 +10,8 @@ import {
 import { ifIphoneX } from "react-native-iphone-x-helper";
 import { TwoColumnListStyle } from "../../AppStyles";
 import SvgIconSet from "../../assets/images/icons/SvgIconSet";
-import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
+import { View } from "../components/Themed";
+import Colors from "../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import SearchBar from "../components/SearchBar";
@@ -25,7 +25,6 @@ export default React.memo(function SearchScreen(
 ) {
   const [
     { fetchNewsWithKeyword, clip },
-
     data,
     loading,
     error,
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
   clipButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#d6d6d6",
+    backgroundColor: Colors.light.grey6,
     opacity: 1,
     zIndex: 2,
     marginTop: -35,

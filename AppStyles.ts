@@ -6,10 +6,6 @@ export const SCREEN_WIDTH = width < height ? width : height;
 const numColumns = 2;
 export const imageSize = height * 0.14;
 
-export const iconSet = {
-  defaultPhoto: require("./assets/images/default-photo.jpg"),
-};
-
 export const AppStyles = {
   color: {
     main: "#ff5a66",
