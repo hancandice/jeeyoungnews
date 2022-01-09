@@ -46,12 +46,12 @@ const setClippedNews = async (items: NewsItem[]) => {
           })
           .catch((err) => {
             console.log("Error fetching updated clipped news: ", err);
-            resolve(null);
+            reject(err);
           });
       })
       .catch((err) => {
         console.log("Error setting clipped news: ", err);
-        resolve(null);
+        reject(err);
       });
   });
 };
@@ -68,12 +68,12 @@ const setSearchHistory = async (items: string[]) => {
           })
           .catch((err) => {
             console.log("Error fetching updated search history: ", err);
-            resolve(null);
+            reject(err);
           });
       })
       .catch((err) => {
         console.log("Error setting search history: ", err);
-        resolve(null);
+        reject(err);
       });
   });
 };

@@ -6,17 +6,15 @@ describe("search reducer", () => {
     expect(search(undefined, { type: "@@INIT" })).toEqual(initialState);
   });
 
-  const searchHistory = ["ed sheeran", "avicii", "north korea", "BTS"];
-
   it("handles receiveSearchHistory", () => {
     const state = search(
       initialState,
-      searchActions.receiveSearchHistory(searchHistory)
+      searchActions.receiveSearchHistory(dummyData.searchHistory)
     );
     expect(state).toEqual({
       ...initialState,
       loading: false,
-      searchHistory,
+      searchHistory: dummyData.searchHistory,
     });
   });
 
@@ -24,7 +22,7 @@ describe("search reducer", () => {
     const state = search(
       initialState,
       searchActions.fetchNewsWithKeyword({
-        keyword: searchHistory[0],
+        keyword: dummyData.searchHistory[0],
         first: true,
       })
     );
@@ -69,12 +67,14 @@ describe("search reducer", () => {
   it("handles addSearchKeywordSuccess", () => {
     const state = search(
       initialState,
-      searchActions.addSearchKeywordSuccess(searchHistory.concat(newKeyword))
+      searchActions.addSearchKeywordSuccess(
+        dummyData.searchHistory.concat(newKeyword)
+      )
     );
     expect(state).toEqual({
       ...initialState,
       loading: false,
-      searchHistory: searchHistory.concat(newKeyword),
+      searchHistory: dummyData.searchHistory.concat(newKeyword),
     });
   });
 

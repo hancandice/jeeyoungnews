@@ -1,13 +1,11 @@
 import { delay, put, select, takeLatest } from "@redux-saga/core/effects";
 import { call } from "redux-saga/effects";
+import { RootState } from "../../redux";
 import clippedService from "../../service/clippedService";
 import getState from "../getState";
 import { searchActions } from "../search/reducer";
-import { NewsItem, SearchState } from "../search/types";
+import { NewsItem } from "../search/types";
 import { clippedActions } from "./reducer";
-import { ClippedState } from "./types";
-
-const { getClipped, getSearch } = getState;
 
 export function* getClippedNewsSaga() {
   while (true) {
@@ -25,16 +23,15 @@ export function* getClippedNewsSaga() {
 }
 
 export function* unclipSaga(action: ReturnType<typeof clippedActions.unclip>) {
-  const { data: clippedNews }: ClippedState = yield select(getClipped);
-  const { data }: SearchState = yield select(getSearch);
+  const { search, clipped }: RootState = yield select(getState);
   try {
     const nextClippedNews: NewsItem[] = yield call(
       clippedService.unclip,
-      clippedNews,
+      clipped.data,
       action.payload
     );
 
-    const newData = data.map((news) =>
+    const newData = search.data.map((news) =>
       news.id === action.payload ? { ...news, clipped: !news.clipped } : news
     );
 

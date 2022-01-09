@@ -1,13 +1,11 @@
 import { delay, put, select, takeLatest } from "@redux-saga/core/effects";
 import { call } from "redux-saga/effects";
+import { RootState } from "../../redux";
 import searchService from "../../service/searchService";
 import { clippedActions } from "../clipped/reducer";
-import { ClippedState } from "../clipped/types";
 import getState from "../getState";
 import { searchActions } from "./reducer";
-import { NewsItem, SearchState } from "./types";
-
-const { getSearch, getClipped } = getState;
+import { NewsItem } from "./types";
 
 export function* getSearchHistorySaga() {
   while (true) {
@@ -27,17 +25,18 @@ export function* getSearchHistorySaga() {
 export function* fetchNewsWithKeywordSaga(
   action: ReturnType<typeof searchActions.fetchNewsWithKeyword>
 ) {
-  const { data }: SearchState = yield select(getSearch);
-  const { data: clippedData }: ClippedState = yield select(getClipped);
+  const { search, clipped }: RootState = yield select(getState);
   while (true) {
     try {
       const newsItemList: NewsItem[] = yield call(
         searchService.fetchNewsWithKeyword,
         action.payload.keyword,
-        action.payload.first ? 0 : Math.ceil(data.length / 10)
+        action.payload.first ? 0 : Math.ceil(search.data.length / 10)
       );
 
-      const clippedNewsIds: string[] = clippedData.map((clipped) => clipped.id);
+      const clippedNewsIds: string[] = clipped.data.map(
+        (clipped) => clipped.id
+      );
       const checkedItemList: NewsItem[] = newsItemList.map((news) =>
         clippedNewsIds.includes(news.id)
           ? { ...news, clipped: !news.clipped }
@@ -50,7 +49,7 @@ export function* fetchNewsWithKeywordSaga(
       } else {
         yield put(
           searchActions.fetchNewsWithKeywordSuccess(
-            data.concat(checkedItemList)
+            search.data.concat(checkedItemList)
           )
         );
       }
@@ -65,11 +64,11 @@ export function* fetchNewsWithKeywordSaga(
 export function* addSearchKeywordSaga(
   action: ReturnType<typeof searchActions.addSearchKeyword>
 ) {
-  const { searchHistory }: SearchState = yield select(getSearch);
+  const { search }: RootState = yield select(getState);
   try {
     const newItemList: string[] = yield call(
       searchService.addSearchKeyword,
-      searchHistory,
+      search.searchHistory,
       action.payload
     );
     yield put(searchActions.addSearchKeywordSuccess(newItemList));
@@ -79,16 +78,15 @@ export function* addSearchKeywordSaga(
 }
 
 export function* clipSaga(action: ReturnType<typeof searchActions.clip>) {
-  const { data: clippedNews }: ClippedState = yield select(getClipped);
-  const { data }: SearchState = yield select(getSearch);
+  const { search, clipped }: RootState = yield select(getState);
   try {
     const newItemList: NewsItem[] = yield call(
       searchService.clip,
-      clippedNews,
+      clipped.data,
       action.payload
     );
 
-    const newData = data.map((news) =>
+    const newData = search.data.map((news) =>
       news.id === action.payload.id ? { ...news, clipped: !news.clipped } : news
     );
 

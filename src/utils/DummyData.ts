@@ -1,3 +1,5 @@
+const searchHistory = ["ed sheeran", "avicii", "north korea", "BTS"];
+
 const searchData = [
   {
     clipped: false,
@@ -71,14 +73,11 @@ const searchData = [
   },
 ];
 
-const clippedData = searchData.map((news) => ({
+const clippedData = searchData.slice(-2).map((news) => ({
   ...news,
   clipped: !news.clipped,
 }));
 
-const dummyData = {
-  searchData,
-  clippedData,
-};
+const dummyData = { searchHistory, searchData, clippedData };
 
 export default dummyData;
