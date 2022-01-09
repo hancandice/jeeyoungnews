@@ -1,41 +1,15 @@
-# 숨고 코딩 과제 👩🏻‍💻 - by 한지영
+# news app
+
+- used Newyork Times API (https://developer.nytimes.com/apis)
+- user can search news articles through typing keywords
+- it provides news clipping function
 
 ---
 
 ## Preview
 
 <p align="center">
-  <img src="assets/images/preview/1.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/2.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/3.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/4.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/5.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/6.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/7.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/8.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/9.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/10.png" width="50%">
-</p>
-<p align="center">
-  <img src="assets/images/preview/11.png" width="50%">
+  <img src="assets/images/preview/newsapp.gif" width="50%">
 </p>
 
 ## Running this app
