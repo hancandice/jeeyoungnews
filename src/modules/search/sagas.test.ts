@@ -1,4 +1,4 @@
-import { runSaga } from "redux-saga";
+import { runSaga, Saga } from "redux-saga";
 import { select, takeLatest } from "redux-saga/effects";
 import searchService from "../../service/searchService";
 import dummyData from "../../utils/DummyData";
@@ -15,9 +15,10 @@ import searchSaga, {
   getSearchHistorySaga,
 } from "./sagas";
 import { NewsItem, SearchNewsPayloads } from "./types";
+import { Action } from "redux";
 
 describe("searchSaga", () => {
-  const genObject = searchSaga();
+  const genObject: Generator = searchSaga();
 
   it("should call getSearchHistorySaga first", () => {
     expect(genObject.next().value.payload.fn).toEqual(getSearchHistorySaga);
@@ -50,7 +51,7 @@ describe("searchSaga", () => {
 });
 
 describe("getSearchHistorySaga", () => {
-  const genObject = getSearchHistorySaga();
+  const genObject: Generator = getSearchHistorySaga();
 
   it("calls searchService.getSearchHistory", () => {
     expect(genObject.next().value.payload.fn).toEqual(
@@ -62,12 +63,12 @@ describe("getSearchHistorySaga", () => {
     const getSearchHistory = jest
       .spyOn(searchService, "getSearchHistory")
       .mockImplementation(() => Promise.resolve(dummyData.searchHistory));
-    const dispatched = [];
+    const dispatched: Action[] = [];
     await runSaga(
       {
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      getSearchHistorySaga
+      getSearchHistorySaga as Saga
     );
 
     expect(getSearchHistory).toHaveBeenCalledTimes(1);
@@ -81,12 +82,12 @@ describe("getSearchHistorySaga", () => {
     const getSearchHistory = jest
       .spyOn(searchService, "getSearchHistory")
       .mockImplementation(() => Promise.resolve(null));
-    const dispatched = [];
+    const dispatched: Action[] = [];
     await runSaga(
       {
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      getSearchHistorySaga
+      getSearchHistorySaga as Saga
     );
 
     expect(getSearchHistory).toHaveBeenCalledTimes(1);
@@ -122,7 +123,7 @@ describe("fetchNewsWithKeywordSaga", () => {
       .spyOn(searchService, "fetchNewsWithKeyword")
       .mockImplementation(() => Promise.resolve(dummyData.searchData));
 
-    const dispatched = [];
+    const dispatched: Action[] = [];
 
     await runSaga(
       {
@@ -130,9 +131,9 @@ describe("fetchNewsWithKeywordSaga", () => {
           search: initialState,
           clipped: clippedInitialState,
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      fetchNewsWithKeywordSaga,
+      fetchNewsWithKeywordSaga as Saga,
       searchActions.fetchNewsWithKeyword(firstRequest)
     );
 
@@ -157,9 +158,9 @@ describe("fetchNewsWithKeywordSaga", () => {
             data: dummyData.clippedData,
           },
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      fetchNewsWithKeywordSaga,
+      fetchNewsWithKeywordSaga as Saga,
       searchActions.fetchNewsWithKeyword(secondRequest)
     );
 
@@ -190,9 +191,9 @@ describe("fetchNewsWithKeywordSaga", () => {
             data: dummyData.clippedData,
           },
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      fetchNewsWithKeywordSaga,
+      fetchNewsWithKeywordSaga as Saga,
       searchActions.fetchNewsWithKeyword(otherRequest)
     );
 
@@ -221,7 +222,7 @@ describe("fetchNewsWithKeywordSaga", () => {
       .spyOn(searchService, "fetchNewsWithKeyword")
       .mockImplementation(() => Promise.reject(err));
 
-    const dispatched = [];
+    const dispatched: Action[] = [];
 
     await runSaga(
       {
@@ -229,9 +230,9 @@ describe("fetchNewsWithKeywordSaga", () => {
           search: initialState,
           clipped: clippedInitialState,
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      fetchNewsWithKeywordSaga,
+      fetchNewsWithKeywordSaga as Saga,
       searchActions.fetchNewsWithKeyword(firstRequest)
     );
 
@@ -255,16 +256,16 @@ describe("addSearchKeywordSaga", () => {
     const addSearchKeyword = jest
       .spyOn(searchService, "addSearchKeyword")
       .mockImplementation(() => Promise.resolve([searchKeyword]));
-    const dispatched = [];
+    const dispatched: Action[] = [];
     await runSaga(
       {
         getState: () => ({
           search: initialState,
           clipped: clippedInitialState,
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      addSearchKeywordSaga,
+      addSearchKeywordSaga as Saga,
       searchActions.addSearchKeyword(searchKeyword)
     );
 
@@ -280,16 +281,16 @@ describe("addSearchKeywordSaga", () => {
     const addSearchKeyword = jest
       .spyOn(searchService, "addSearchKeyword")
       .mockImplementation(() => Promise.reject(err));
-    const dispatched = [];
+    const dispatched: Action[] = [];
     await runSaga(
       {
         getState: () => ({
           search: initialState,
           clipped: clippedInitialState,
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      addSearchKeywordSaga,
+      addSearchKeywordSaga as Saga,
       searchActions.addSearchKeyword(searchKeyword)
     );
 
@@ -313,16 +314,16 @@ describe("clipSaga", () => {
       .mockImplementation(() =>
         Promise.resolve([{ ...newsItem, clipped: true }])
       );
-    const dispatched = [];
+    const dispatched: Action[] = [];
     await runSaga(
       {
         getState: () => ({
           search: { ...initialState, data: dummyData.searchData },
           clipped: clippedInitialState,
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      clipSaga,
+      clipSaga as Saga,
       searchActions.clip(newsItem)
     );
 
@@ -343,16 +344,16 @@ describe("clipSaga", () => {
     const clip = jest
       .spyOn(searchService, "clip")
       .mockImplementation(() => Promise.reject(err));
-    const dispatched = [];
+    const dispatched: Action[] = [];
     await runSaga(
       {
         getState: () => ({
           search: { ...initialState, data: dummyData.searchData },
           clipped: clippedInitialState,
         }),
-        dispatch: (action) => dispatched.push(action),
+        dispatch: (action: Action) => dispatched.push(action),
       },
-      clipSaga,
+      clipSaga as Saga,
       searchActions.clip(newsItem)
     );
 
