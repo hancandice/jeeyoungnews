@@ -21,6 +21,9 @@ export default function App() {
     Appearance.addChangeListener(({ colorScheme }) => {
       setColorScheme(colorScheme);
     });
+    return () => {
+      console.log("good");
+    };
   }, []);
 
   if (!isLoadingComplete) {
